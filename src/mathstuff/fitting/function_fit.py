@@ -5,10 +5,19 @@
 # authors: Craig Versek (cversek@physics.umass.edu)
 #          Mike Thorn
 ###############################################################################
-from enthought.traits.api import HasTraits, on_trait_change, Trait, Instance, \
-                                 Str, Int, Float, Bool, Tuple, List, Dict,    \
-                                 Set, Undefined, Array, Function
-from enthought.traits.ui.api import View, Group, Item
+try:
+    #look for the now standard traits.api
+    from traits.api import HasTraits, on_trait_change, Trait, Instance, \
+                                     Str, Int, Float, Bool, Tuple, List, Dict,    \
+                                     Set, Undefined, Array, Function
+    from traits.ui.api import View, Group, Item
+except ImportError:
+    #otherwise try to get it from the old enthought tool suite
+    from enthought.traits.api import HasTraits, on_trait_change, Trait, Instance, \
+                                     Str, Int, Float, Bool, Tuple, List, Dict,    \
+                                     Set, Undefined, Array, Function
+    from enthought.traits.ui.api import View, Group, Item
+
 import inspect
 import numpy, scipy
 from numpy import array, hstack, linspace, logspace, log10, sqrt, ones_like

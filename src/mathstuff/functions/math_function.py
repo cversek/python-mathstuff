@@ -5,11 +5,21 @@
 # authors: Craig Versek (cversek@physics.umass.edu)
 #          Mike Thorn
 ###############################################################################
-from enthought.traits.api import HasStrictTraits, on_trait_change, Trait,     \
-                                 Instance, Str, Int, Float, Bool, Tuple, List,\
-                                 Dict, Set, Undefined, Array, Function,       \
-                                 TraitError
-from enthought.traits.ui.api import View, Group, Item
+try:
+    #look for the now standard traits.api
+    from traits.api import HasTraits, HasStrictTraits, on_trait_change, Trait,\
+                                      Instance, Str, Int, Float, Bool, Tuple,\
+                                      List, Dict, Set, Undefined, Array, Function
+    from traitsui.api import View, Group, Item
+except ImportError as err:
+    print("Warning caught error: %s" % err)
+    #otherwise try to get it from the old enthought tool suite
+    from enthought.traits.api import HasTraits, HasStrictTraits, on_trait_change,\
+                                     Trait, Instance, Str, Int, Float, Bool,\
+                                     Tuple, List, Dict, Set, Undefined, Array,\
+                                     Function
+    from enthought.traits.ui.api import View, Group, Item
+
 import inspect
 import yaml
 import numpy, scipy
@@ -23,10 +33,10 @@ class MathFunction(HasStrictTraits):
         func: a python function object 
               example: 
                       def func(x,y,A,b,C):
-                          "{n_x: 2, n_y: 3}"
+                          "{n_x: 2, n_y: 1}"
                           return A*x + b*y + C
                                           
-              defines a 2D function (x,y) with 3 parameters A,b,C
+              defines a 2D -> 1D function (x,y) with 3 parameters A,b,C
                 
                        
     """
